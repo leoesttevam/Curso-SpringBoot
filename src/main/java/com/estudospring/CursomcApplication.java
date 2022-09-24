@@ -1,7 +1,6 @@
 package com.estudospring;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -10,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.estudospring.model.Categoria;
 import com.estudospring.model.Cidade;
+import com.estudospring.model.Cliente;
+import com.estudospring.model.Endereco;
 import com.estudospring.model.Estado;
 import com.estudospring.model.Produto;
+import com.estudospring.model.enums.TipoCliente;
 import com.estudospring.repository.CategoriaRepository;
 import com.estudospring.repository.CidadeRepository;
+import com.estudospring.repository.ClienteRepository;
+import com.estudospring.repository.EnderecoRepository;
 import com.estudospring.repository.EstadoRepository;
 import com.estudospring.repository.ProdutoRepository;
 
@@ -31,6 +35,12 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired 
 	private EstadoRepository estado;
+	
+	@Autowired
+	private ClienteRepository cliente;
+	
+	@Autowired
+	private EnderecoRepository endereco;
 	
 
 	public static void main(String[] args) {
@@ -64,10 +74,21 @@ public class CursomcApplication implements CommandLineRunner {
 		est1.getCidades().addAll(Arrays.asList(city1));
 		est2.getCidades().addAll(Arrays.asList(city2, city3));
 		
+		Cliente c1 = new Cliente(null, "Maria Aparecida", "maria@gmail.com", "42256467856", TipoCliente.PESSOAFISICA);
+		c1.getTelefones().addAll(Arrays.asList("958959292", "58915666"));
+		
+		Endereco e1 = new Endereco(null, "Rua um", "300", "Apto 303", "Jardim", "38220834", c1, city1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", c1, city2);
+		
+		c1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
 		categoria.saveAll(Arrays.asList(cat1, cat2));
 		produto.saveAll(Arrays.asList(p1, p2, p3));
 		estado.saveAll(Arrays.asList(est1, est2));
 		cidade.saveAll(Arrays.asList(city1, city2, city3));
+		cliente.saveAll(Arrays.asList(c1));
+		endereco.saveAll(Arrays.asList(e1, e2));
+		
 	}
 
 }
