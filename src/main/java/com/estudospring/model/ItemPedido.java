@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
