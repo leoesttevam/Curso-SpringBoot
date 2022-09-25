@@ -39,6 +39,9 @@ public class Cliente implements Serializable{
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+	
 	public Cliente() {
 		
 	}
@@ -50,6 +53,22 @@ public class Cliente implements Serializable{
 		this.email = email;
 		this.cpfOuCnpj = cnpj;
 		this.tipo = tipo.getCod();
+	}
+
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
+	}
+
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	public Integer getId() {
@@ -74,14 +93,6 @@ public class Cliente implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getCnpj() {
-		return cpfOuCnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cpfOuCnpj = cnpj;
 	}
 
 	public TipoCliente getTipo() {
